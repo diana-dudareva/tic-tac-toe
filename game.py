@@ -1,5 +1,5 @@
 from gameparts import Board
-from gameparts.exceptions import FieldIndexError
+from gameparts.exceptions import CellOccupiedError, FieldIndexError
 
 
 def main():
@@ -22,7 +22,9 @@ def main():
                 column = int(input('Введите номер столбца: '))
                 if column < 0 or column >= game.field_size:
                     raise FieldIndexError
-            
+                if game.board[row][column] != ' ':
+                    raise CellOccupiedError
+
             except FieldIndexError:
                 print(
                     'Значение должно быть неотрицательным и меньше '
