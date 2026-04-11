@@ -14,7 +14,6 @@ def main():
         while True:
             try:
 
-
                 row = int(input('Введите номер строки: '))
                 if row < 0 or row >= game.field_size:
                     raise FieldIndexError
@@ -41,12 +40,19 @@ def main():
             except Exception as e:
                 print(f'Возникла ошибка: {e}')
 
-
             else:
                 break
 
         game.make_move(row, column, current_player)
         game.display()
+        if game.check_win(current_player):
+            print(f'Победили {current_player}!')
+            running = False
+        elif game.is_board_full():
+            print('Ничья!')
+            running = False
+
+
         current_player = 'O' if current_player == 'X' else 'X'
 
 if __name__ == '__main__':
